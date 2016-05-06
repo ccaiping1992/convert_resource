@@ -1,0 +1,97 @@
+绑定账号：
+	git config --global user.name "cc"
+	git config --global user.email "cc"
+	blobal：所有的git仓库都会使用这个配置
+创建仓库：
+	cd learngit
+	git init
+提交文件：
+	git add readme.txt    添加
+	git commit -m "add a readme file" 提交
+查看状态：
+	git status
+查看详情:
+	git diff
+查看所有版本：
+	git log
+	git log --pretty=oneline   // 简介模式
+版本定位：
+	HEAD     当前版本
+	HEAD^    上一版本
+	HEAD^^   上上一版本
+	HEAD~100 往前100个版本
+回退到固定版本
+	git reset --hard HEAD^  相对版本
+	git reset --hard 36548554  绝对版本
+纪录操作日志：
+	git reflog
+管理修改：
+	git diff    查看工作区和缓存区的修改详情
+	git diff -- cached 查看缓存区和版本库的不同详情
+	git diff HEAD 对比工作区和版本库的不同
+撤销修改：
+	git checkout -- filename 撤销修改，让这个文件回到最近一次git commit或git add时的状态
+	git reset HEAD filename 撤销缓存区的修改
+
+删除文件：
+	git rm filename
+	git commit -m ''
+还原至版本库最新版本：
+	git checkout -- test.txt   
+
+
+添加远程库：
+	git remote add origin git@server-name:path/repo-name.git   关联一个远程库
+	git push -u origin master 第一次推送master分支的所有内容   -u 两边的分支关联起来
+	git push origin master 正常推送
+从远程库克隆：
+	git clone url  
+
+创建与合并分支:
+	创建  git checkout -b <name> ==  git branch <name>+ git checkout <name>
+	查看  git branch <name>
+	合并  git merge <name>合并指定分支到当前分支
+	删除分支 git branch -d <name>
+解决冲突:
+	先合并，然后编辑，然后在提交
+	git log --graph 查看分支合并图
+
+分支管理策略：
+	git merge --no-ff -m 'some thing' branch_name   普通模式合并  存在合并历史记录
+
+bug分支(藏匿分支)：
+	git stash   藏匿分支
+	git stash   查看被藏匿列表
+	git stash apply <stash_name> 恢复，不删除 ，git stash drop 删除
+	git stash pop  恢复并删除
+
+删除未合并的分支：
+	git branch -D branch_name
+
+
+多人协助：
+	查看远程库信息，使用git remote -v；
+
+	本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+	从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+	在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+	建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+	从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+创建标签：
+	git tag <name> <commit id>  在commit id处建立标题，默认未当前版本
+	git tag -a <tagname> -m 'blablabla...' -a 指定标签名 -m 标签信息
+	git tag 标签列表
+	git show <tagname> 查看标签
+操作标签：
+	git push origin <tagname> 推送一个本地标签
+	git push origin --tags    推送全部未推送的本地标签；
+	git tag -d <tagname>      删除本地标签
+	git push origin :refs/tags/<tagname> 删除一个远程标签;
+
+忽略特殊文件：.gitignore
+
